@@ -1,15 +1,11 @@
 # Univent 1.3
 
-Der Univent-Projekt Ordner mit allen nötigen Libaries [SQL-Files](/SQL)und der vorgesehenen Ordnerstruktur (localhost-Version).
+Der Univent-Projekt Ordner mit allen nötigen Libaries [SQL-Files](/SQL) und der vorgesehenen Ordnerstruktur (localhost-Version).
 
 Link zur Webversion:
 ====================
 http://46.101.189.85:8080/SE2-Praktikumssoftware/
 
-Downloadlink der .war-Datei (Webversion)
-========================================
-
-http://bit.ly/1JF0NjZ (Public-Bereich HAW)
 
 Userguide:
 ====================
@@ -42,10 +38,5 @@ Setup
 WICHTIG:
 --------
 In der Klasse se2.praktikum.projekt.datenimexport.Folders, die Dateipfade (String Konstanten) so ändern, dass sie in "/dein/pfad/zum/workspace/SE2-Praktikumssoftware" fuehren. Dort liegen auch die anderen benoetigten Ordner "backend_resources", "datenexport", etc, ...
-
-Tutorials
-=========
-1.  Spring MVC -> https://github.com/jnk111/SpringMVCTutorial
-2.  AngularJS -> https://github.com/jnk111/AngularTutorialGithubViewer
 
 
