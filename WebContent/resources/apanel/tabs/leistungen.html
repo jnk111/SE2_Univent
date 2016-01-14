@@ -1,0 +1,155 @@
+<div class="row" id="leistungen" ng-controller="ModalController">
+  <br />
+  <div class="col-md-10 col-md-offset-1" ng-controller="LeistungenController">
+    <div class="panel panel-cust-info">
+      <br />
+      <div class="panel-body">
+        <!--ContentPane start-->
+        <div class="col-md-10 col-md-offset-1">
+          <div class="panel panel-cust-success">
+            <div class="panel-heading">
+              <h2>
+                <strong>Leistungen</strong>
+              </h2>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-sm-3 text text-muted">
+                  <small>Fachbereich:</small>
+                </div>
+                <div class="col-sm-3 text text-muted">
+                  <small>Typ:</small>
+                </div>
+                <div class="col-sm-3 text text-muted">
+                  <small>Semester:</small>
+                </div>
+                <div class="col-sm-3 text text-muted">
+                  <small>Fach:</small>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-3 text-muted">
+                  <select class="form-control" data-width="100%" ng-options="fb for fb in fachbereiche" ng-model="ls.fb" ng-change="initLeistungen()">
+                  </select>
+                </div>
+                <div class="col-sm-3 text text-muted">
+                  <select class="form-control" data-width="100%" ng-options="typ for typ in typen" ng-model="ls.typ" ng-change="initLeistungen()">
+                  </select>
+                </div>
+                <div class="col-sm-3 text text-muted">
+                  <select class="form-control" data-width="100%" ng-options="sem for sem in semester" ng-model="ls.sem" ng-change="initLeistungen()">
+                  </select>
+                </div>
+                <div class="col-sm-3">
+                  <select class="form-control" data-width="100%" ng-options="fach for fach in getFaecher()" ng-model="ls.fach" ng-change="initLeistungenFuerFach(ls.fach)" ng-init="ls.fach='PRP1'">
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+               <div class="col-sm-12">
+                <hr />
+               </div>
+              </div>
+              <div class="row">
+                <br/>
+                <div class="col-sm-12">
+                  <div class="strike text-muted">
+                    <span>
+                      <h5>und / oder</h5>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12 inner-addon right-addon">
+                  <span class="glyphicon glyphicon-search"></span>
+                  <input type="text" class="form-control" ng-model="searchKeyword" placeholder="Filtern - Name oder Matrikelnr eingeben..." />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <br />
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Matrikelnr.</th>
+                        <th>Vorname</th>
+                        <th>Nachname</th>
+                        <th>Fach</th>
+                        <th>PVL</th>
+                        <th>Prüfung</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="tm in getLeistungen() | filter: searchKeyword">
+                        <td>{{tm.student.matrNr.matrNr}}</td>
+                        <td>{{tm.student.vorname}}</td>
+                        <td>{{tm.student.nachname}}</td>
+                        <td>{{tm.fach.fachKuerzel}}</td>
+                        <td>
+                          <div>
+                            <div ng-if="isSuccessPVL(tm.student.matrNr)">
+                              <div ng-include="getSuccess()">
+                              </div>
+                            </div>
+                            <div ng-if="!isSuccessPVL(tm.student.matrNr)">
+                              <div ng-if="isOpenPVL(tm.student.matrNr)">
+                                <div ng-include="getOpen()">
+                                </div>
+                              </div>
+                              <div ng-if="!isOpenPVL(tm.student.matrNr)">
+                                <div ng-include="getFail()">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div>
+                            <div ng-if="isSuccessNote(tm.student.matrNr)">
+                              <div ng-include="getSuccess()">
+                              </div>
+                            </div>
+                            <div ng-if="!isSuccessNote(tm.student.matrNr)">
+                              <div ng-if="isOpenNote(tm.student.matrNr)">
+                                <div ng-include="getOpen()">
+                                </div>
+                              </div>
+                              <div ng-if="!isOpenNote(tm.student.matrNr)">
+                                <div ng-include="getFail()">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-my-default btn-sm pull-right" ng-click="initTmDetailsLeist(tm.student.matrNr)" data-toggle="modal" data-target="#modalTmDetailsLeist" data-placement="bottom" title="Teilnehmerdetails zeigen" onmouseenter="$(this).tooltip('show')">
+                            <span class="glyphicon glyphicon-user"></span>
+                          </button>
+                          <div ng-include="getModalTMLeistungen()"></div>
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-my-default btn-sm pull-right" ng-click="initEintragen(tm.student.matrNr)" data-toggle="modal" data-target="#modalPVL" data-placement="bottom" title="PVL eintragen" onmouseenter="$(this).tooltip('show')">
+                            <span class="glyphicon glyphicon-check"></span>
+                          </button>
+                          <div ng-include="getModalPVL()"> </div>
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-my-default btn-sm pull-right" ng-disabled="isSuccessNote(tm.student.matrNr)" ng-click="initEintragen(tm.student.matrNr)" data-toggle="modal" data-target="#modalNote" data-placement="bottom" title="Note eintragen" onmouseenter="$(this).tooltip('show')">
+                            <span class="glyphicon glyphicon-edit"></span>
+                          </button>
+                          <div ng-include="getModalNote()"></div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--ContentPane end-->
+    </div>
+  </div>
+</div>

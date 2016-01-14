@@ -1,0 +1,82 @@
+<div class="modal" id="teamDetails" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">
+          <strong>Team bearbeiten</strong>
+        </h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-12 text text-muted">
+            <strong>Allgemein</strong>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <td>Team-ID</td>
+                  <td>{{getDetailTeam().teamID.id}}</td>
+                </tr>
+                <tr>
+                  <td>Fach / Gruppe</td>
+                  <td>{{getDetailTeam().fachkuerzel}} / {{getDetailTeam().vorgGrpNr}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 text text-muted">
+            <strong>Mitglieder</strong>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>MatrikelNr.</th>
+                  <th>Name</th>
+                  <th>Optionen</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="mg in getDetailTeam().mitglieder">
+                  <td>
+                    {{mg.matrNr.matrNr}}
+                  </td>
+                  <td>
+                    {{mg.vorname}} {{mg.nachname}}
+                  </td>
+                  <td>
+                    <button type="button" class="btn btn-my-default btn-sm" ng-click="einladungZurueckziehen(mg)" data-placement="bottom" title="Einladung zurueckziehen" onmouseenter="$(this).tooltip('show')" ng-disabled="mg.bestaetigt">
+                      <span class="glyphicon glyphicon-minus"></span>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12">
+            <hr/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <button type="button" data-dismiss="modal" class="btn btn-my-block" data-placement="bottom" title="Schließen" onmouseenter="$(this).tooltip('show')">
+              <span class="glyphicon glyphicon-ok"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

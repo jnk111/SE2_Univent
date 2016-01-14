@@ -1,0 +1,3 @@
+#Verwaltungsmitarbeiter
+{"vorname":"Maria","nachname":"Albricht","vollerName":null,"benutzername":"naa001","passwort":"naa001","gebDatum":382489200000,"gebOrt":"Hamburg","adresse":{"strasse":"Frankfurterallee","hausNr":45,"postleitzahl":{"plz":"22742"},"stadt":"Hamburg"},"department":"I","email":{"email":"maria.albricht@haw-hamburg.de"},"maID":{"id":1}}
+{"vorname":"Jan","nachname":"Meyer","vollerName":null,"benutzername":"naa002","passwort":"naa002","gebDatum":483746400000,"gebOrt":"Berlin","adresse":{"strasse":"Albrechtstrasse","hausNr":32,"postleitzahl":{"plz":"21412"},"stadt":"Hamnburg"},"department":"I","email":{"email":"jan.meyer@haw-hamburg.de"},"maID":{"id":2}}

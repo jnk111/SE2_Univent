@@ -1,0 +1,379 @@
+<div class="row" ng-controller="DateController">
+  <br>
+  <div class="col-sm-10 col-sm-offset-1" ng-controller="AnmeldeController">
+    <div class="panel panel-cust-info" ng-controller="ModalController">
+      <br />
+      <div class="panel-body">
+        <!--ContentPane start-->
+        <div class="col-sm-10 col-sm-offset-1">
+          <div class="panel panel-cust-success">
+            <div class="panel-heading">
+              <h2>
+                <strong>Anmeldetermine</strong>
+              </h2>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <br />
+                <div class="col-sm-12">
+                  <div class="strike text-muted">
+                    <span>
+                      <h5>Teamanmeldungen</h5>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Typ</th>
+                        <th>Start Datum</th>
+                        <th>Ende Datum</th>
+                        <th>Start Uhrzeit</th>
+                        <th>Ende Uhrzeit</th>
+                        <th>Status Teamanm.</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Pflichpraktika</td>
+                        <td style="width: 20%;">
+                          <div class="input-group">
+                            <input type="text" class="form-control" ng-click="openCalAnmeldung(0, 0)" show-button-bar="false" datepicker-popup="{{format}}" ng-model="prakt.datumStart" is-open="anmeldung[0][0]" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                            <div class="input-group-addon">
+                              <i class="glyphicon glyphicon-calendar"></i>
+                            </div>
+                          </div>
+                          <p class="help-box"ng-show="!istGueltigeDatumEingabe(prakt.datumStart)"><span class="text text-danger"> <small>Ungueltiges Datum (Format: TT.MM.JJJJ)</small></span></p>
+                          <p class="help-box"ng-show="istGueltigeDatumEingabe(prakt.datumStart) && !istGueltigerZeitRaumDatum(prakt.datumStart, prakt.datumEnde)"><span class="text text-danger"> <small>Ungueltiger Zeitraum</small></span></p>
+                        </td>
+                        <td style="width: 20%;">
+                          <div class="input-group">
+                            <input type="text" class="form-control" ng-click="openCalAnmeldung(0, 1)" show-button-bar="false" datepicker-popup="{{format}}" ng-model="prakt.datumEnde" is-open="anmeldung[0][1]" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                            <div class="input-group-addon">
+                              <i class="glyphicon glyphicon-calendar"></i>
+                            </div>
+                          </div>
+                          <p class="help-box"ng-show="!istGueltigeDatumEingabe(prakt.datumEnde)"><span class="text text-danger"> <small>Ungueltiges Datum (Format: TT.MM.JJJJ)</small></span></p>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control" placeholder="Start" ng-model="prakt.uzStart"/>
+                          <p class="help-box"ng-show="!istGueltigeUhrzeitEingabe(prakt.uzStart)"><span class="text text-danger"> <small>Ungueltige Uhzeit (Format: HH:MM)</small></span></p>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control" placeholder="Ende" ng-model="prakt.uzEnde"/>
+                          <p class="help-box"ng-show="!istGueltigeUhrzeitEingabe(prakt.uzEnde)"><span class="text text-danger"> <small>Ungueltige Uhzeit (Format: HH:MM)</small></span></p>
+                        </td>
+                        <td>
+                          <div ng-if="pruefeAnmeldePhase(prakt.datumStart) && !pruefeAnmeldePhase(prakt.datumEnde)">
+                            <div ng-include="getRunning()">
+                            </div>
+                          </div>
+                          <div ng-if="!pruefeAnmeldePhase(prakt.datumStart)">
+                            <div ng-include="getOpen()">
+
+                            </div>
+                          </div>
+                          <div ng-if="pruefeAnmeldePhase(prakt.datumEnde)">
+                            <div ng-include="getFinished()">
+
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Wahlpflicht</td>
+                        <td style="width: 20%;">
+                          <div class="input-group">
+                            <input type="text" class="form-control" ng-click="openCalAnmeldung(1, 0)" show-button-bar="false" datepicker-popup="{{format}}" ng-model="wp.datumStart" is-open="anmeldung[1][0]" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                            <div class="input-group-addon">
+                              <i class="glyphicon glyphicon-calendar"></i>
+                            </div>
+                          </div>
+                          <p class="help-box"ng-show="!istGueltigeDatumEingabe(wp.datumStart)"><span class="text text-danger"> <small>Ungueltiges Datum (Format: TT.MM.JJJJ)</small></span></p>
+                          <p class="help-box"ng-show="istGueltigeDatumEingabe(wp.datumStart) && !istGueltigerZeitRaumDatum(wp.datumStart, wp.datumEnde)"><span class="text text-danger"> <small>Ungueltiger Zeitraum</small></span></p>
+                        </td>
+                        <td style="width: 20%;">
+                          <div class="input-group">
+                            <input type="text" class="form-control" ng-click="openCalAnmeldung(1, 1)" show-button-bar="false" datepicker-popup="{{format}}" ng-model="wp.datumEnde" is-open="anmeldung[1][1]" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                            <div class="input-group-addon">
+                              <i class="glyphicon glyphicon-calendar"></i>
+                            </div>
+                          </div>
+                          <p class="help-box"ng-show="!istGueltigeDatumEingabe(wp.datumEnde)"><span class="text text-danger"> <small>Ungueltiges Datum (Format: TT.MM.JJJJ)</small></span></p>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control" placeholder="Start" ng-model="wp.uzStart"/>
+                          <p class="help-box"ng-show="!istGueltigeUhrzeitEingabe(wp.uzStart)"><span class="text text-danger"> <small>Ungueltige Uhzeit (Format: HH:MM)</small></span></p>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control" placeholder="Ende" ng-model="wp.uzEnde"/>
+                          <p class="help-box"ng-show="!istGueltigeUhrzeitEingabe(wp.uzEnde)"><span class="text text-danger"> <small>Ungueltige Uhzeit (Format: HH:MM)</small></span></p>
+                        </td>
+                        <td>
+                          <div ng-if="pruefeAnmeldePhase(wp.datumStart) && !pruefeAnmeldePhase(wp.datumEnde)">
+                            <div ng-include="getRunning()">
+
+                            </div>
+                          </div>
+                          <div ng-if="!pruefeAnmeldePhase(wp.datumStart)">
+                            <div ng-include="getOpen()">
+
+                            </div>
+                          </div>
+                          <div ng-if="pruefeAnmeldePhase(wp.datumEnde)">
+                            <div ng-include="getFinished()">
+
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Projekt</td>
+                        <td style="width: 20%;">
+                          <div class="input-group">
+                            <input type="text" class="form-control" ng-click="openCalAnmeldung(2, 0)" show-button-bar="false" datepicker-popup="{{format}}" ng-model="po.datumStart" is-open="anmeldung[2][0]" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                            <div class="input-group-addon">
+                              <i class="glyphicon glyphicon-calendar"></i>
+                            </div>
+                          </div>
+                          <p class="help-box"ng-show="!istGueltigeDatumEingabe(po.datumStart)"><span class="text text-danger"> <small>Ungueltiges Datum (Format: TT.MM.JJJJ)</small></span></p>
+                          <p class="help-box"ng-show="istGueltigeDatumEingabe(po.datumStart) && !istGueltigerZeitRaumDatum(po.datumStart, po.datumEnde)"><span class="text text-danger"> <small>Ungueltiger Zeitraum</small></span></p>
+                        </td>
+                        <td style="width: 20%;">
+                          <div class="input-group">
+                            <input type="text" class="form-control" ng-click="openCalAnmeldung(2, 1)" show-button-bar="false" datepicker-popup="{{format}}" ng-model="po.datumEnde" is-open="anmeldung[2][1]" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                            <div class="input-group-addon">
+                              <i class="glyphicon glyphicon-calendar"></i>
+                            </div>
+                          </div>
+                          <p class="help-box"ng-show="!istGueltigeDatumEingabe(po.datumEnde)"><span class="text text-danger"> <small>Ungueltiges Datum (Format: TT.MM.JJJJ)</small></span></p>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control" placeholder="Start" ng-model="po.uzStart"/>
+                          <p class="help-box"ng-show="!istGueltigeUhrzeitEingabe(po.uzStart)"><span class="text text-danger"> <small>Ungueltige Uhzeit (Format: HH:MM)</small></span></p>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control" placeholder="Ende" ng-model="po.uzEnde"/>
+                          <p class="help-box"ng-show="!istGueltigeUhrzeitEingabe(po.uzEnde)"><span class="text text-danger"> <small>Ungueltige Uhzeit (Format: HH:MM)</small></span></p>
+                        </td>
+                        <td>
+                          <div ng-if="pruefeAnmeldePhase(po.datumStart) && !pruefeAnmeldePhase(po.datumEnde)">
+                            <div ng-include="getRunning()">
+                            </div>
+                          </div>
+                          <div ng-if="!pruefeAnmeldePhase(po.datumStart)">
+                            <div ng-include="getOpen()">
+
+                            </div>
+                          </div>
+                          <div ng-if="pruefeAnmeldePhase(po.datumEnde)">
+                            <div ng-include="getFinished()">
+
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="row">
+                <br />
+                <div class="col-sm-12">
+                  <div class="strike text-muted">
+                    <span>
+                      <h5>Einzelanmeldungen</h5>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Typ</th>
+                        <th>Start Datum</th>
+                        <th>Ende Datum</th>
+                        <th>Start Uhrzeit</th>
+                        <th>Ende Uhrzeit</th>
+                        <th>Status Einzelanm.</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Pflichpraktika</td>
+                        <td style="width: 20%;">
+                          <div class="input-group">
+                            <input type="text" class="form-control" ng-click="openCalAnmeldung(3, 0)" show-button-bar="false" datepicker-popup="{{format}}" ng-model="prakt.datumEinzelStart" is-open="anmeldung[3][0]" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                            <div class="input-group-addon">
+                              <i class="glyphicon glyphicon-calendar"></i>
+                            </div>
+                          </div>
+                          <p class="help-box" ng-show="!istGueltigeDatumEingabe(prakt.datumEinzelStart)"><span class="text text-danger"> <small>Ungueltiges Datum (Format: TT.MM.JJJJ)</small></span></p>
+                          <p class="help-box" ng-show="istGueltigeDatumEingabe(prakt.datumEinzelStart) && !istGueltigerZeitRaumDatum(prakt.datumEinzelStart, prakt.datumEinzelEnde)"><span class="text text-danger"> <small>Ungueltiger Zeitraum</small></span></p>
+                          <p class="help-box" ng-show="!istGueltigerZeitRaumEinzelDatum(prakt.datumEinzelStart, prakt.datumEnde)"><span class="text text-danger"> <small>Darf nicht vor Teamanmeldeschluss liegen.</small></span></p>
+                        </td>
+                        <td style="width: 20%;">
+                          <div class="input-group">
+                            <input type="text" class="form-control" ng-click="openCalAnmeldung(3, 1)" show-button-bar="false" datepicker-popup="{{format}}" ng-model="prakt.datumEinzelEnde" is-open="anmeldung[3][1]" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                            <div class="input-group-addon">
+                              <i class="glyphicon glyphicon-calendar"></i>
+                            </div>
+                          </div>
+                          <p class="help-box"ng-show="!istGueltigeDatumEingabe(prakt.datumEinzelEnde)"><span class="text text-danger"> <small>Ungueltiges Datum (Format: TT.MM.JJJJ)</small></span></p>
+                          <p class="help-box"ng-show="istGueltigeDatumEingabe(prakt.datumEinzelEnde) && !istGueltigerZeitRaumDatum(prakt.datumEinzelStart, prakt.datumEinzelEnde)"><span class="text text-danger"> <small>Ungueltiger Zeitraum</small></span></p>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control" placeholder="Start" ng-model="prakt.uzEinzelStart"/>
+                          <p class="help-box"ng-show="!istGueltigeUhrzeitEingabe(prakt.uzEinzelStart)"><span class="text text-danger"> <small>Ungueltige Uhzeit (Format: HH:MM)</small></span></p>
+                          <p class="help-box"ng-show="istGueltigeUhrzeitEingabe(prakt.uzEinzelStart) && !istGueltigeStartUhrzeitEinzel(prakt.datumEinzelStart, prakt.datumEnde, prakt.uzEinzelStart, prakt.uzEnde)"><span class="text text-danger"> <small>Darf nicht vor Teamanmeldeschluss liegen.</small></span></p>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control" placeholder="Ende" ng-model="prakt.uzEinzelEnde"/>
+                          <p class="help-box"ng-show="!istGueltigeUhrzeitEingabe(prakt.uzEinzelEnde)"><span class="text text-danger"> <small>Ungueltige Uhzeit (Format: HH:MM)</small></span></p>
+                        </td>
+                        <td>
+                          <div ng-if="pruefeAnmeldePhase(prakt.datumEinzelStart) && !pruefeAnmeldePhase(prakt.datumEinzelEnde)">
+                            <div ng-include="getRunning()">
+                            </div>
+                          </div>
+                          <div ng-if="!pruefeAnmeldePhase(prakt.datumEinzelStart)">
+                            <div ng-include="getOpen()">
+
+                            </div>
+                          </div>
+                          <div ng-if="pruefeAnmeldePhase(prakt.datumEinzelEnde)">
+                            <div ng-include="getFinished()">
+
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Wahlpflicht</td>
+                        <td style="width: 20%;">
+                          <div class="input-group">
+                            <input type="text" class="form-control" ng-click="openCalAnmeldung(4, 0)" show-button-bar="false" datepicker-popup="{{format}}" ng-model="wp.datumEinzelStart" is-open="anmeldung[4][0]" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                            <div class="input-group-addon">
+                              <i class="glyphicon glyphicon-calendar"></i>
+                            </div>
+                          </div>
+                          <p class="help-box"ng-show="!istGueltigeDatumEingabe(wp.datumEinzelStart)"><span class="text text-danger"> <small>Ungueltiges Datum (Format: TT.MM.JJJJ)</small></span></p>
+                          <p class="help-box"ng-show="istGueltigeDatumEingabe(wp.datumEinzelStart) && !istGueltigerZeitRaumDatum(wp.datumEinzelStart, wp.datumEinzelEnde)"><span class="text text-danger"> <small>Ungueltiger Zeitraum</small></span></p>
+                          <p class="help-box" ng-show="!istGueltigerZeitRaumEinzelDatum(wp.datumEinzelStart, wp.datumEnde)"><span class="text text-danger"> <small>Darf nicht vor Teamanmeldeschluss liegen.</small></span></p>
+                        </td>
+                        <td style="width: 20%;">
+                          <div class="input-group">
+                            <input type="text" class="form-control" ng-click="openCalAnmeldung(4, 1)" show-button-bar="false" datepicker-popup="{{format}}" ng-model="wp.datumEinzelEnde" is-open="anmeldung[4][1]" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                            <div class="input-group-addon">
+                              <i class="glyphicon glyphicon-calendar"></i>
+                            </div>
+                          </div>
+                          <p class="help-box"ng-show="!istGueltigeDatumEingabe(wp.datumEinzelEnde)"><span class="text text-danger"> <small>Ungueltiges Datum (Format: TT.MM.JJJJ)</small></span></p>
+                          <p class="help-box"ng-show="istGueltigeDatumEingabe(wp.datumEinzelEnde) && !istGueltigerZeitRaumDatum(wp.datumEinzelStart, wp.datumEinzelEnde)"><span class="text text-danger"> <small>Ungueltiger Zeitraum</small></span></p>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control" placeholder="Start" ng-model="wp.uzEinzelStart"/>
+                          <p class="help-box"ng-show="!istGueltigeUhrzeitEingabe(wp.uzEinzelStart)"><span class="text text-danger"> <small>Ungueltige Uhzeit (Format: HH:MM)</small></span></p>
+                          <p class="help-box"ng-show="istGueltigeUhrzeitEingabe(wp.uzEinzelStart) && !istGueltigeStartUhrzeitEinzel(wp.datumEinzelStart, wp.datumEnde, wp.uzEinzelStart, wp.uzEnde)"><span class="text text-danger"> <small>Darf nicht vor Teamanmeldeschluss liegen.</small></span></p>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control" placeholder="Ende" ng-model="wp.uzEinzelEnde"/>
+                          <p class="help-box"ng-show="!istGueltigeUhrzeitEingabe(wp.uzEinzelEnde)"><span class="text text-danger"> <small>Ungueltige Uhzeit (Format: HH:MM)</small></span></p>
+                        </td>
+                        <td>
+                          <div ng-if="pruefeAnmeldePhase(wp.datumEinzelStart) && !pruefeAnmeldePhase(wp.datumEinzelEnde)">
+                            <div ng-include="getRunning()">
+                            </div>
+                          </div>
+                          <div ng-if="!pruefeAnmeldePhase(wp.datumEinzelStart)">
+                            <div ng-include="getOpen()">
+
+                            </div>
+                          </div>
+                          <div ng-if="pruefeAnmeldePhase(wp.datumEinzelEnde)">
+                            <div ng-include="getFinished()">
+
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Projekt</td>
+                        <td style="width: 20%;">
+                          <div class="input-group">
+                            <input type="text" class="form-control" ng-click="openCalAnmeldung(5, 0)" show-button-bar="false" datepicker-popup="{{format}}" ng-model="po.datumEinzelStart" is-open="anmeldung[5][0]" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                            <div class="input-group-addon">
+                              <i class="glyphicon glyphicon-calendar"></i>
+                            </div>
+                          </div>
+                          <p class="help-box"ng-show="!istGueltigeDatumEingabe(po.datumEinzelStart)"><span class="text text-danger"> <small>Ungueltiges Datum (Format: TT.MM.JJJJ)</small></span></p>
+                          <p class="help-box"ng-show="istGueltigeDatumEingabe(po.datumEinzelStart) && !istGueltigerZeitRaumDatum(po.datumEinzelStart, po.datumEinzelEnde)"><span class="text text-danger"><small>Ungueltiger Zeitraum</small></span></p>
+                          <p class="help-box" ng-show="!istGueltigerZeitRaumEinzelDatum(po.datumEinzelStart, po.datumEnde)"><span class="text text-danger"> <small>Darf nicht vor Teamanmeldeschluss liegen.</small></span></p>
+                        </td>
+                        <td style="width: 20%;">
+                          <div class="input-group">
+                            <input type="text" class="form-control" ng-click="openCalAnmeldung(5, 1)" show-button-bar="false" datepicker-popup="{{format}}" ng-model="po.datumEinzelEnde" is-open="anmeldung[5][1]" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                            <div class="input-group-addon">
+                              <i class="glyphicon glyphicon-calendar"></i>
+                            </div>
+                          </div>
+                          <p class="help-box"ng-show="!istGueltigeDatumEingabe(po.datumEinzelEnde)"><span class="text text-danger"> <small>Ungueltiges Datum (Format: TT.MM.JJJJ)</small></span></p>
+                          <p class="help-box"ng-show="istGueltigeDatumEingabe(po.datumEinzelEnde) && !istGueltigerZeitRaumDatum(po.datumEinzelStart, po.datumEinzelEnde)"><span class="text text-danger"><small>Ungueltiger Zeitraum</small></span></p>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control" placeholder="Start" ng-model="po.uzEinzelStart"/>
+                          <p class="help-box"ng-show="!istGueltigeUhrzeitEingabe(po.uzEinzelStart)"><span class="text text-danger"> <small>Ungueltige Uhzeit (Format: HH:MM)</small></span></p>
+                          <p class="help-box"ng-show="istGueltigeUhrzeitEingabe(po.uzEinzelStart) && !istGueltigeStartUhrzeitEinzel(po.datumEinzelStart, po.datumEnde, po.uzEinzelStart, po.uzEnde)"><span class="text text-danger"> <small>Darf nicht vor Teamanmeldeschluss liegen.</small></span></p>
+                        <td>
+                          <input type="text" class="form-control" placeholder="Ende" ng-model="po.uzEinzelEnde"/>
+                          <p class="help-box"ng-show="!istGueltigeUhrzeitEingabe(po.uzEinzelEnde)"><span class="text text-danger"> <small>Ungueltige Uhzeit (Format: HH:MM)</small></span></p>
+                        </td>
+                        <td>
+                          <div ng-if="pruefeAnmeldePhase(po.datumEinzelStart) && !pruefeAnmeldePhase(po.datumEinzelEnde)">
+                            <div ng-include="getRunning()">
+                            </div>
+                          </div>
+                          <div ng-if="!pruefeAnmeldePhase(po.datumEinzelStart)">
+                            <div ng-include="getOpen()">
+
+                            </div>
+                          </div>
+                          <div ng-if="pruefeAnmeldePhase(po.datumEinzelEnde)">
+                            <div ng-include="getFinished()">
+
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <hr/>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12"> <!--!isFilledComplete()-->
+                  <button type="button" ng-disabled="false" data-toggle="modal" data-target="#termineSave" class="btn btn-my-block" data-toggle="modal" ng-click="speichereAnmeldeDaten()" data-placement="bottom" title="AnmeldeTermine festlegen" onmouseenter="$(this).tooltip('show')">
+                    <span class="glyphicon glyphicon-ok"></span>
+                  </button>
+                  <div ng-include src="getTermineSave()">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--ContentPane end-->
+    </div>
+  </div>
+</div>

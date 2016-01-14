@@ -1,0 +1,115 @@
+<div class="row" id="veranstaltungen" ng-controller="ExtController">
+  <br />
+  <div class="col-md-10 col-md-offset-1" ng-controller="VeranstaltungsController">
+    <div class="panel panel-cust-info">
+      <br />
+      <div class="panel-body">
+        <!--ContentPane start-->
+        <div class="col-md-10 col-md-offset-1">
+          <div class="panel panel-cust-success">
+            <div class="panel-heading">
+              <h2>
+                <strong>Pflichtpraktika-Übersicht</strong>
+              </h2>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-sm-6 text text-muted">
+                  <small>Fachbereich:</small>
+                </div>
+                <div class="col-sm-6 text text-muted">
+                  <small>Semester</small>
+                </div>
+              </div>
+              <div class="row">
+                <div class=col-md-6>
+                  <select class="form-control" data-width="100%" ng-model="va.fach.fachBereich" ng-options="fb for fb in getFachbereiche()" ng-change="getVAFuerFachbereich(va.fachbereich)">
+                  </select>
+                </div>
+                <div class=col-md-6>
+                  <select class="form-control" data-width="100%" ng-model="va.sem" ng-options="sem for sem in semester" ng-change="getVAFuerSemester(va.sem)">
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                </div>
+              </div>
+              <div class="row">
+                <br />
+                <div class="col-sm-12">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="strike text text-muted">
+                        <span>und/oder</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12 inner-addon right-addon">
+                  <span class="glyphicon glyphicon-search"></span>
+                  <input type="text" class="form-control" ng-model="searchKeyword" placeholder="Fach, Dozent, Assistent eingeben..." />
+                </div>
+              </div>
+              <div class="row">
+                <br/>
+                <div class="col-md-12">
+                  <table class="table table-striped" ng-controller="ModalController">
+                    <thead>
+                      <tr>
+                        <th>Fach</th>
+                        <th>Fach-Verantwortlicher</th>
+                        <th>Anz. Teilnehmer</th>
+                        <th>Anz. Gruppen</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="veranstaltung in veranstaltungen | filter: searchKeyword">
+                        <td>{{veranstaltung.fach.fachKuerzel}}</td>
+                        <td>{{veranstaltung.professor.vollerName}}</td>
+                        <td>{{veranstaltung.anzTm}} / {{veranstaltung.maxTm}}</td>
+                        <td>{{veranstaltung.anzGr}} / {{veranstaltung.maxGr}}</td>
+                        <td>
+                          <button type="button" class="btn btn-my-default btn-sm" ng-click="initGruppenUebersicht(veranstaltung.fach); switchToGruppen()" data-placement="bottom" title="Weiter zur Gruppenübersicht" onmouseenter="$(this).tooltip('show')">
+                            <span class="glyphicon glyphicon-forward"></span>
+                          </button>
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-my-default btn-sm" ng-click="initVeranBearbeitenPopup(veranstaltung.fach)" data-toggle="modal" data-target="#modalBearbeiten" data-placement="bottom" title="Veranstaltung bearbeiten" onmouseenter="$(this).tooltip('show')">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                          </button>
+                          <div ng-include src="getVeranstaltungEdit()"></div>
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-my-default btn-sm" ng-click="initVeranstaltungLoeschen(veranstaltung.fach)" data-toggle="modal" data-target="#veranstLoeschen" data-placement="bottom" title="Diese Veranstaltung löschen" onmouseenter="$(this).tooltip('show')">
+                            <span class="glyphicon glyphicon-trash"></span>
+                          </button>
+                          <div ng-include src="getVeranstaltungLoesch()"></div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="row" id="veranerstellen">
+                <div class="col-sm-12">
+                  <button type="button" class="btn btn-my-block" data-toggle="modal" ng-click="veranErstellen()" data-placement="bottom" title="Neue Veranstaltung erstellen" onmouseenter="$(this).tooltip('show')">
+                    <span class="glyphicon glyphicon-plus"></span>
+                  </button>
+                  <div ng-switch on="getCurrTemplate()">
+                    <div ng-switch-when="veranErstellen">
+                      <div ng-include src="getExtVeranErstellen()"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--ContentPane end-->
+    </div>
+  </div>
+</div>

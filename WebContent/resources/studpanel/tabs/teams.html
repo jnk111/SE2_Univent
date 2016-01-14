@@ -1,0 +1,87 @@
+<div class="row" id="teams" ng-controller="TeamController">
+  <br />
+  <div class="col-md-10 col-md-offset-1">
+    <div class="panel panel-cust-info" ng-controller="ModalController">
+      <br />
+      <div class="panel-body">
+        <!--ContentPane start-->
+        <div class="col-md-10 col-md-offset-1">
+          <div class="panel panel-cust-success">
+            <div class="panel-heading">
+              <h2>
+                <strong>Meine Teams</strong>
+              </h2>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-sm-12 inner-addon right-addon">
+                  <span class="glyphicon glyphicon-search"></span>
+                  <input type="text" class="form-control" ng-model="searchKeyword" placeholder="Student, Fach, etc..." />
+                </div>
+              </div>
+              <div class="row">
+                <br/>
+                <div class="col-md-12">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Team-ID</th>
+                        <th>Fach</th>
+                        <th>Grp. Nr.</th>
+                        <th>Mitglieder</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="team in getMeineTeams() | filter: searchKeyword">
+                        <td>{{team.teamID.id}}</td>
+                        <td>{{team.fachkuerzel}}</td>
+                        <td>{{team.vorgGrpNr}}</td>
+                        <td>
+                          <div ng-repeat="mg in team.mitglieder" ng-class="{'text-danger': !mg.bestaetigt}">
+                            {{mg.vollerName}}
+                        </div>
+                      </td>
+                        <td>
+                          <div ng-if="team.grpNr == 0">
+                            <div ng-include src=getNichtBestaetigt()>
+
+                            </div>
+                          </div>
+                          <div ng-if="team.grpNr > 0">
+                            <div ng-include="getBestaetigt()">
+
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-my-default btn-sm" ng-click="getGruppenDetails(team)" data-toggle="modal" data-target="#gruppeDetailsTeam" data-placement="bottom" title="Details zu dieser Gruppe anzeigen" onmouseenter="$(this).tooltip('show')">
+                            <span class="glyphicon glyphicon glyphicon-info-sign"></span>
+                          </button>
+                          <div ng-include src="getGruppeDetailsTeam()"></div>
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-my-default btn-sm" ng-click="initTeamDetails($index)" data-toggle="modal" data-target="#teamDetails" data-placement="bottom" title="Teamdetails anzeigen" onmouseenter="$(this).tooltip('show')">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                          </button>
+                          <div ng-include src="getTeamDetails()"></div>
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-my-default btn-sm" ng-click="initTeamVerlassen(team)" data-toggle="modal" data-target="#austreten" data-placement="bottom" title="Aus Team austreten" onmouseenter="$(this).tooltip('show')" ng-disabled="alleBestaetigt(team) && team.grpNr > 0 && !teamAnmeldePhaseAbgeschlossen() && !einzelAnmelder(team)">
+                            <span class="glyphicon glyphicon-remove"></span>
+                          </button>
+                          <div ng-include src="getTeamLoeschen()"></div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--ContentPane end-->
+    </div>
+  </div>
+</div>

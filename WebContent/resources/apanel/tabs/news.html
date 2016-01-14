@@ -1,0 +1,27 @@
+<div class="row" ng-controller="EditController">
+  <br />
+  <div class="col-md-10 col-md-offset-1">
+    <div class="panel panel-cust-info">
+      <br />
+      <div class="panel-body">
+        <div class="col-md-10 col-md-offset-1">
+          <div class="panel panel-cust-success">
+            <div class="panel-heading">
+              <h2>
+                <strong>News</strong>
+              </h2>
+            </div>
+            <div ng-switch on="getEditStatus()">
+              <div ng-switch-when="true">
+                <div ng-include src="getNewsEdit()"></div>
+              </div>
+              <div ng-switch-when="false">
+                <div ng-include src="getNewsShow()"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

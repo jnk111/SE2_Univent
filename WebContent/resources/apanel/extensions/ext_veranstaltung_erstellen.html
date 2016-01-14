@@ -1,0 +1,85 @@
+<div>
+  <div class="row">
+    <br/>
+    <div class="col-sm-12">
+      <button type="button" class="btn btn-my-block" ng-click="veranErstellenClose()"data-placement="bottom" title="Abbrechen" onmouseenter="$(this).tooltip('show')">
+        <span class="glyphicon glyphicon-minus"></span>
+      </button>
+    </div>
+  </div>
+  <div>
+  <div class="form-horizontal" role="form">
+    <div class="row">
+      <!-- Modal content-->
+      <div class="col-md-12">
+        <hr />
+        <h3>Veranstaltung erstellen</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6 text text-muted">
+        <small>Fachbereich:</small>
+      </div>
+      <div class="col-sm-6 text text-muted">
+        <small>Semester:</small>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <select class="form-control" data-width="100%" ng-model="va.fach.fachbereich" ng-options="fb for fb in fachbereiche" ng-change="initProfessoren(va.fach.fachbereich, va.fach.semester)">
+        </select>
+      </div>
+      <div class="col-sm-6">
+        <select class="form-control" data-width="100%" ng-model="va.fach.semester" ng-options="sem for sem in semester" ng-change="initProfessoren(va.fach.fachbereich, va.fach.semester)">
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <br/>
+      <div class="col-sm-4 text text-muted"><small>Fachkuerzel:</small></div>
+      <div class="col-sm-4 text text-muted"><small>Fachbezeichnung:</small></div>
+      <div class="col-sm-4 text text-muted"><small>Fachverantwortlicher:</small></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4 inner-addon right-addon">
+        <input type="text" class="form-control" placeholder="Fachkuerzel eintragen" ng-model="va.fach.fachKuerzel" name="fach" ng-init="''"/>
+        <p class="help-box" ng-show="!isValidFachkuerzel(va.fach.fachKuerzel)"><span class="text text-danger"></small>Mindestens 2 und maximal 5 Zeichen.</span></p>
+        <p class="help-box" ng-show="vaVorhanden(va.fach.fachKuerzel)"><span class="text text-danger"></small>Veranstaltung bereits angelegt.</span></p>
+      </div>
+      <div class="col-sm-4 inner-addon right-addon">
+        <input type="text" class="form-control" placeholder="Fachbezeichnung eintragen" ng-model="va.fach.fachBezeichnung" name="fachb" ng-init="''"/>
+      	<p class="help-box" ng-show="!isValidFachbezeichnung(va.fach.fachBezeichnung)"><span class="text text-danger"></small>Fachbezeichnung eintragen</span></p>
+        <p class="help-box" ng-show="vaVorhanden(va.fach.fachKuerzel)"><span class="text text-danger"></small>Veranstaltung bereits angelegt.</span></p>
+      </div>
+      <div class="col-sm-4 inner-addon right-addon">
+        <span class="glyphicon glyphicon-search"></span>
+        <span class="glyphicon glyphicon-search"></span>
+        <input type="text" class="form-control" typeahead="professor for professor in getProfString()" ng-model="value" placeholder="MAID, Vorname, Nachname..." />
+        <p class="help-box" ng-show="!isValidProfInput(value)"><span class="text text-danger"></small>Professor nicht gefunden.</span></p>
+      </div>
+    </div>
+    <div class="row">
+      <br />
+      <div class="col-sm-6 text text-muted"><small>Min. Teamgroeße:</small></div>
+      <div class="col-sm-6 text text-muted"><small>Max. Teamgroeße:</small></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6 inner-addon right-addon">
+       <input type="number" class="form-control" placeholder="Min. Teamgroeße eintragen" ng-model="va.minTeilnTeam" name="fach" ng-init="''"/>
+       <p class="help-box" ng-show="!isValidAnzTeilnehmer(va.minTeilnTeam)"><span class="text text-danger"> <small>Mindestens 2 und maximal 10 Teilnehmer</small></span></p>
+       <p class="help-box" ng-show="!isValidMin(va.minTeilnTeam, va.maxTeilnTeam)"><span class="text text-danger"> <small>Min > Max</small></span></p>
+     </div>
+     <div class="col-sm-6 inner-addon right-addon">
+      <input type="number" class="form-control" placeholder="Min. Teamgroeße eintragen" ng-model="va.maxTeilnTeam" name="fach" ng-init="''"/>
+      <p class="help-box" ng-show="!isValidAnzTeilnehmer(va.maxTeilnTeam)"><span class="text text-danger"> <small>Mindestens 2 und maximal 10 Teilnehmer</small></span></p>
+      <p class="help-box" ng-show="!isValidMax(va.minTeilnTeam, va.maxTeilnTeam)"><span class="text text-danger"> <small>Max < Min</small></span></p>
+    </div>
+  </div>
+  <div class="row">
+    <br/>
+      <div class="col-md-12">
+        <button type="button" ng-disabled="!filledComplete()" ng-click="addVeranstaltung()" class="btn btn-my-block" data-placement="bottom" title="Speichern" onmouseenter="$(this).tooltip('show')"><span class="glyphicon glyphicon-ok"></span></button>
+      </div>
+    </div>
+  </div>
+</div>

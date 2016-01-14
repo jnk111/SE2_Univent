@@ -1,0 +1,95 @@
+<div class="row" id="pflichtpraktika" ng-controller="TeamController">
+  <br />
+  <div class="col-md-10 col-md-offset-1">
+    <div class="panel panel-cust-info">
+      <br />
+      <div class="panel-body" ng-controller="ModalController">
+        <!--ContentPane start-->
+        <div class="col-md-10 col-md-offset-1">
+          <div class="panel panel-cust-success">
+            <div class="panel-heading">
+              <h2>
+                <strong>Teamkonfiguration <small>- Ausgewaehlte Gruppen</small></strong>
+              </h2>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Fach</th>
+                        <th>Grp.-Nr.</th>
+                        <th>Mitglieder</th>
+                        <th>  </th>
+                        <th>Plaetze(Anz./Min./Max)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="team in getTeameintraege()">
+                        <td>{{team.gruppe.fachkuerzel}}</td>
+                        <td>{{team.gruppe.grpNr}}</td>
+                        <td>
+                          <table class="table borderless">
+                            <tbody>
+                              <tr ng-repeat="mitglied in team.team.mitglieder">
+                                <td>
+                                  <div>
+                                    {{mitglied.vorname}}  {{mitglied.nachname}}
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                        <td>
+	                        <button type="button" ng-disabled="einzelAnmeldungen[$index]" class="btn btn-my-default btn-sm" ng-click="initTeamTabelleKonfig(team)" data-toggle="modal" data-target="#teamErstellen" data-placement="bottom" title="Fuege Mitglieder hinzu" onmouseenter="$(this).tooltip('show')">
+	                  			<span class="glyphicon glyphicon-plus"></span>
+	                        </button>
+	                        <div ng-include="getTeamErstellen()">
+                         	</div>
+	                    </td>
+                        <td ng-class="{'text-success': team.team.mitglieder.length >= (team.team.minTeiln - 1), 'text-danger': team.team.mitglieder.length + 1 < team.team.minTeiln}">{{team.team.mitglieder.length + 1}}/{{team.team.minTeiln}}/{{team.team.maxTeiln}}</td>
+                        <td>
+                          <button type="button" class="btn btn-my-default btn-sm" ng-click="initGruppeDetails(team.gruppe.fachkuerzel, team.gruppe.grpNr)" data-toggle="modal" data-target="#gruppeDetails" data-placement="bottom" title="Zeige Details dieser Gruppe"
+                                  onmouseenter="$(this).tooltip('show')">
+                            <span class="glyphicon glyphicon-info-sign"></span>
+                          </button>
+                          <div ng-include="getGruppeDetails()">
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                </table>
+                </div>
+              </div>
+              <div class="row">
+                <br />
+                <div class="col-sm-12">
+                  <button type="button" class="btn btn-my-block" data-toggle="modal" ng-click="setzeAlleTeamsZurueck(team)" data-placement="bottom" title="Alles zurücksetzen" onmouseenter="$(this).tooltip('show')">
+                    <span class="glyphicon glyphicon-minus"></span>
+                  </button>
+                </div>
+              </div>
+              <div class="row">
+                <br /> <!-- "bestaetigeTeamkonfig(); initTeamTabelleMeineTabelle(); switchToTeams()"-->
+                <div class="col-sm-12">
+                  <button type="button" ng-disabled="!alleTeamsVollstaendig()" class="btn btn-my-block" data-toggle="modal" data-target="#einlVerschickt" data-placement="bottom" title="Teamkonfiguration speichern" onmouseenter="$(this).tooltip('show')">
+                    <span class="glyphicon glyphicon-ok"></span>
+                  </button>
+                  <p class="help-box"ng-show="!alleTeamsVollstaendig()"><span class="text text-danger"> <small>Ein oder mehrere Teams unvollständig.</small></span></p>
+                </div>
+                <div ng-include src="getEinlVerschickt()">
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--ContentPane end-->
+    </div>
+  </div>
+</div>

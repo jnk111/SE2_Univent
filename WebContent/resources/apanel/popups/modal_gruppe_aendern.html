@@ -1,0 +1,104 @@
+<div class="modal" id="gruppeBearbeiten" role="dialog">
+  <div class="modal-dialog" style="width:40%;" ng-controller="DateController">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">
+          <strong>Gruppe bearbeiten</strong>
+        </h4>
+      </div>
+      <form class="form-horizontal" role="form">
+        <div class="modal-body">
+
+          <div class="row">
+   			<br />
+    		<div class="col-sm-6 inner-addon right-addon">
+          <input type="text" class="form-control" typeahead="prof for prof in getProfessoren()" placeholder="Dozenten suchen..." ng-model="profGrEdit" name="dozent"/>
+          <p class="help-box"ng-show="!isValidProfInputGre(profGrEdit)"><span class="text text-danger"> <small>Professor nicht gefunden.</small></span></p>
+    		</div>
+    		<div class="col-sm-6 inner-addon right-addon">
+      			<span class="glyphicon glyphicon-search"></span>
+            <input type="text" class="form-control" typeahead="assist for assist in getAssistenten()" placeholder="Assistenten suchen..." ng-model="assistGrEdit" name="assistent"/>
+            <p class="help-box"ng-show="!isValidAssistInputGre(assistGrEdit)"><span class="text text-danger"> <small>Assistent nicht gefunden.</small></span></p>
+    		</div>
+  			</div>
+          <div class="row">
+            <br />
+            <div class="col-sm-12">
+              <div class="strike text text-muted">
+                <span>{{termWaehlenTitle}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <table class="table table-striped" style="margin: 1px;">
+                <thead>
+                  <tr>
+                    <th>TNr.</th>
+                    <th>Datum</th>
+                    <th>Beginn</th>
+                    <th>Ende</th>
+                    <th>Raum</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="termin in gre.termine">
+                    <td style="width: 5%;">{{$index+1}}.</td>
+                    <td style="width: 35%;">
+                      <div class="input-group">
+                        <input type="text" class="form-control" ng-click="openCal($index)" show-button-bar="false" datepicker-popup="{{format}}" ng-model="termin.datum" is-open="status[$index].opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)"ng-required="true" close-text="Close" />
+                        <div class="input-group-addon">
+                          <i class="glyphicon glyphicon-calendar"></i>
+                        </div>
+                      </div>
+                      <p class="help-box"ng-show="!isValidDateE($index)"><span class="text text-danger"> <small>Folgetermin in Vergangenheit oder gleich.</small></span></p>
+                    </td>
+                    <td style="width: 20%;">
+                      <select class="form-control" data-width="100%" ng-model="termin.start" ng-options="uzBeginn.string() for uzBeginn in startZeiten" ng-selected="{{uzBeginn.string()==termin.start.string()}}">
+                      </select>
+                      <p class="help-box"ng-show="!isValidStartTimeE($index)"><span class="text text-danger"><small>Uhrzeit Ende liegt in Vergangenheit.</small></span></p>
+                    </td>
+                    <td style="width: 20%;">
+                      <select class="form-control" data-width="100%" ng-model="termin.ende" ng-options="uzEnde.string() for uzEnde in endZeiten">
+                      </select>
+                    </td>
+                     <td style="width: 20%;">
+                       <input type="text" class="form-control" placeholder="Raum" ng-model="termin.raum"/>
+                       <p class="help-box" ng-show="false"><span class="text text-danger"></small>Raum ungültig</span></p>
+                    </td>
+                    <td>
+                      <button type="button" class="btn btn-my-default btn-sm"  ng-click="terminLoeschenE($index)" data-placement="bottom" title="Diesen Termin entfernen" onmouseenter="$(this).tooltip('show')" ng-disabled="gre.termine.length < 2">
+                        <span class="glyphicon glyphicon glyphicon-minus"></span>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <button type="button" class="btn btn-my-block btn-sm" ng-click="addCal(); terminHinzufuegenE()" data-placement="bottom" title="Weiteren Termin hinzufügen" onmouseenter="$(this).tooltip('show')">
+                <span class="glyphicon glyphicon glyphicon-plus"></span>
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <hr/>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <button type="button" class="btn btn-my-block" data-dismiss="modal" ng-disabled="!isFilledCompleteErstellenE()" ng-click="editGruppe()" data-placement="bottom" title="Speichern" onmouseenter="$(this).tooltip('show')">
+                <span class="glyphicon glyphicon-ok"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

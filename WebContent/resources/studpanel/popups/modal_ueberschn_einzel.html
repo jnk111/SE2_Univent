@@ -1,0 +1,43 @@
+<div class="modal" id="ueberschn_einzel" role="dialog">
+  <div class="modal-dialog" style="width:40%">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h3 class="modal-title text text-danger text-center">
+          <strong><span class="glyphicon glyphicon-flash pull-left"></span> Ueberschneidungen vorhanden</strong>
+        </h3>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="text text-center text-danger">
+              <strong>Ihre Gruppenauswahl enthaelt Terminueberschneidungen!</strong><br />
+              Bitte waehlen Sie eine andere Zusammenstellung. <br />
+              <br />
+              Wenn Sie fortfahren, können Sie an einer oder mehreren
+              Veranstaltungen möglicherweise nicht teilnehmen!
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <hr />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <button type="button" class="btn btn-my-block btn-sm" data-dismiss="modal" ng-click="initEinzelAnmeldung(); switchToTeams()" data-placement="bottom" title="Ignorieren und Weiter" onmouseenter="$(this).tooltip('show')">
+              <span class="glyphicon glyphicon-ok"></span>
+            </button>
+          </div>
+          <div class="col-sm-6">
+            <button type="button" class="btn btn-my-block btn-sm" data-dismiss="modal" data-placement="bottom" title="Abbrechen" onmouseenter="$(this).tooltip('show')">
+              <span class="glyphicon glyphicon-remove"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

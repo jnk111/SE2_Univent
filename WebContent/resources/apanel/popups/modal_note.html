@@ -1,0 +1,53 @@
+<div class="modal" id="modalNote" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">
+          <strong>Note eintragen</strong>
+        </h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="strike text text-muted">
+              <span>Notensystem waehlen</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <br />
+          <div class="col-sm-12">
+            <form role="form">
+              <label class="radio-inline">
+                <input type="radio" name="optradio" ng-model="ls.sys" ng-click="setPunkteSys()" value="punkte"><small>Punkte</small>
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="optradio" ng-model="ls.sys" ng-click="setNoteSys()" value="note"><small>Note numerisch</small>
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="optradio" ng-model="ls.sys" ng-click="setNoteAlphSys()" value="alphNote"><small>Note alphabetisch</small>
+              </label>
+            </form>
+          </div>
+        </div>
+        <div class="row">
+          <br />
+          <div class="col-sm-12">
+            <input type="text" class="form-control" placeholder="Note..." ng-model="ls.eintrNote" name=""/>
+            <p class="help-box"ng-show="!istGueltigeNote(ls.eintrNote)"><span class="text text-danger"><small>Ungueltige Note</small></span></p>
+          </div>
+        </div>
+        <br />
+        <div class="row">
+          <div class="col-sm-12">
+            <button type="button" class="btn btn-my-block" ng-disabled="!isFilledComplete()"ng-click="trageNoteEin()" data-dismiss="modal" data-placement="bottom" title="Speichern" onmouseenter="$(this).tooltip('show')">
+              <span class="glyphicon glyphicon-ok"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

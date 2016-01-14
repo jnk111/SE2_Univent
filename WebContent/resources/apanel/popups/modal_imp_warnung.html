@@ -1,0 +1,43 @@
+<div class="modal" id="impWarnung" role="dialog" ng-controller="DatenImportExportController">
+  <div class="modal-dialog" style="width:40%">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title text text-center text-success">
+          <strong class="text">Hinweise zum Import</strong>
+        </h3>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="text text-center text-success">
+              <strong>Im naechsten Schritt werden die gewaehlten Daten importiert</strong> <br/>
+              Dieser Vorgang laeuft im Hintergrund
+              <br/>
+              Bitte lesen Sie vor Ausfuehrung des Vorgangs die Hinweise zum Datenimport. </br>
+
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <hr />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <button type="button" class="btn btn-my-block btn-sm" data-dismiss="modal" data-placement="bottom" title="Daten importieren" onmouseenter="$(this).tooltip('show')" ng-click="importiere()">
+              <span class="glyphicon glyphicon-ok"></span>
+            </button>
+          </div>
+          <div class="col-sm-6">
+            <button type="button" class="btn btn-my-block btn-sm" data-dismiss="modal" data-placement="bottom" title="Abbrechen" onmouseenter="$(this).tooltip('show')">
+              <span class="glyphicon glyphicon-remove"></span>
+            </button>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

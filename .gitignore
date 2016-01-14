@@ -1,0 +1,3 @@
+# Ignoriere Datenbank-Info
+backend_resources/database.config
+build/classes/database.config

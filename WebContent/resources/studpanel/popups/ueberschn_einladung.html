@@ -1,0 +1,90 @@
+<div class="modal" id="ueberschnEinl" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">
+          <strong>Ueberschneidungen</strong>
+        </h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-12 text text-muted">
+            <strong>Allgemein</strong>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <table class="table table-bordered table-striped">
+              <tbody>
+                <tr>
+                  <td>Fach</td>
+                  <td>{{usEinladung.team.fachkuerzel}}</td>
+                </tr>
+                <tr>
+                  <td>Gruppen-Nr.</td>
+                  <td>{{usEinladung.team.vorgGrpNr}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 text text-muted">
+            <strong>Termin-Konflikte</strong>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>GrpNr.</th>
+                  <th>Fach</th>
+                  <th>Termine</th>
+                  <th>Konflikt mit</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="gruppe in getUSGruppen() track by $index">
+                  <td>{{gruppe.grpNr}}</td>
+                  <td>{{gruppe.fachkuerzel}}</td>
+                  <td>
+                    <div ng-repeat="termin in gruppe.termine track by $index">
+                      {{termin.formattedDateString}}
+                    </div>
+                  </td>
+                  <td>
+                    <div ng-if="gruppe.usGruppen.length == 0">
+                      <div class="text text-success">
+                        Keine Konflikte  <span class="glyphicon glyphicon-ok"></span>
+                      </div>
+                    </div>
+                    <div ng-if="gruppe.usGruppen.length > 0">
+                      <div ng-repeat="gruppe in gruppe.usGruppen" class="text text-danger">
+                        {{gruppe.fachkuerzel}}, {{gruppe.grpNr}}
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <hr/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <button type="button" data-dismiss="modal" class="btn btn-my-block" data-placement="bottom" title="Schließen" onmouseenter="$(this).tooltip('show')">
+              <span class="glyphicon glyphicon-minus"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

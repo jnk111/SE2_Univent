@@ -1,0 +1,97 @@
+<div class="row" id="meldungen" ng-controller="MeldungenController">
+  <br />
+  <div class="col-md-10 col-md-offset-1" ng-controller="TeamController">
+    <div class="panel panel-cust-info" ng-controller="ModalController">
+      <br />
+      <div class="panel-body">
+        <!--ContentPane start-->
+        <div class="col-md-10 col-md-offset-1">
+          <div class="panel panel-cust-success">
+            <div class="panel-heading">
+              <h2>
+                <strong>Aktuelle Meldungen</strong>
+              </h2>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Typ</th>
+                        <th>Datum</th>
+                        <th>Von</th>
+                        <th>Fach</th>
+                        <th>Team</th>
+                        <th>Grp. - Nr.</th>
+                        <th>Optionen</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="meldung in getMeldungen()">
+                        <td>{{meldung.descr}}</td>
+                        <td>{{meldung.versandDatum.getString()}}</td>
+                        <td>{{meldung.absender.vollerName}}</td>
+                        <td>{{meldung.team.fachkuerzel}}</td>
+                        <td>
+                          <div ng-repeat="mitglied in meldung.team.mitglieder">
+                            {{mitglied.vollerName}}
+                          </div>
+                        </td>
+                        <td>{{meldung.team.vorgGrpNr}}</td>
+                        <td>
+                          <div ng-if="meldung.typ=='Teameinladung'">
+                            <div>
+                              <button type="button" class="btn btn-my-default btn-sm" ng-click="einladungAnnehmen(meldung)" data-placement="bottom" title="Einladung annehmen" onmouseenter="$(this).tooltip('show')">
+                                <span class="glyphicon glyphicon-ok"></span>
+                              </button>
+                              &nbsp;
+                              &nbsp;
+                              <button type="button" class="btn btn-my-default btn-sm" ng-click="einladungAblehnen(meldung)" data-placement="bottom" title="Einladung ablehnen" onmouseenter="$(this).tooltip('show')">
+                                <span class="glyphicon glyphicon-remove"></span>
+                              </button>
+                              &nbsp;
+                              &nbsp;
+                              <button type="button" class="btn btn-my-default btn-sm" data-toggle="modal" data-target="#ueberschnEinl" ng-click="initUeberschneidungen(meldung)" data-placement="bottom" title="Ueberschneidungen pruefen" onmouseenter="$(this).tooltip('show')">
+                                <span class="glyphicon glyphicon-flash"></span>
+                              </button>
+                              <div ng-include src="getUeberschnEinladung()">
+
+                              </div>
+                            </div>
+                          </div>
+                        <div ng-if="meldung.typ == 'TEAblehnung' || meldung.typ == 'TeamAustrittsmeldung'">
+                          <div>
+                            <button type="button" class="btn btn-my-default btn-sm" ng-click="findeNeuesMitglied(meldung); switchToTeamkonfig()" data-placement="bottom" title="Neues Teammitglied finden" onmouseenter="$(this).tooltip('show')">
+                              <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <hr />
+                </div>
+                <div class="col-sm-12">
+                  <div ng-if="true"> <!--"!meldungenVorhanden()"-->
+                    <div>
+                      <button type="button" class="btn btn-my-block" ng-click="aktualisiere()" data-placement="bottom" title="Aktulalisieren" onmouseenter="$(this).tooltip('show')">
+                        <span class="glyphicon glyphicon-repeat"></span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--ContentPane end-->
+    </div>
+  </div>
+</div>

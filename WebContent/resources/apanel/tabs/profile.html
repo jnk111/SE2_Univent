@@ -1,0 +1,69 @@
+<div class="row" id="profile" ng-controller="ProfileController">
+  <br />
+  <div class="col-md-10 col-md-offset-1">
+    <div class="panel panel-cust-info">
+      <br />
+      <div class="panel-body">
+        <!--ContentPane start-->
+        <div class="col-md-10 col-md-offset-1">
+          <div class="panel panel-cust-success">
+            <div class="panel-heading">
+              <h2>
+                <strong>Profil</strong>
+              </h2>
+            </div>
+            <div class="panel-body">
+              <div>
+                <table class="table table-striped">
+                  <tbody>
+                    <tr>
+                      <td>Name</td>
+                      <td>{{getCurrUser().vorname}} {{getCurrUser().nachname}}</td>
+                    </tr>
+                    <tr>
+                      <td>Benutzername</td>
+                      <td>{{getCurrUser().benutzername}}</td>
+                    </tr>
+                    <tr>
+                      <td>Straße</td>
+                      <td>
+                        {{getCurrUser().adresse.strasse}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>PLZ/Ort</td>
+                      <td>
+                        {{getCurrUser().adresse.postleitzahl.plz}} / {{getCurrUser().adresse.stadt}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Geburtstag</td>
+                      <td>{{getCurrUser().gebDatum.getString()}}</td>
+                    </tr>
+                    <tr>
+                      <td>Geburtsort</td>
+                      <td>{{getCurrUser().gebOrt}}</td>
+                    </tr>
+                    <tr>
+                      <td>Mitarbeiter-ID</td>
+                      <td>{{getCurrUser().maID.id}}</td>
+                    </tr>
+                    <tr>
+                      <td>Department</td>
+                      <td>{{getCurrUser().department}}</td>
+                    </tr>
+                    <tr>
+                      <td>E-Mail:</td>
+                      <td>{{getCurrUser().email.email}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!--ContentPane end-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

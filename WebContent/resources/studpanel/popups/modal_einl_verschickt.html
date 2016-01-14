@@ -1,0 +1,44 @@
+<div class="modal" id="einlVerschickt" role="dialog">
+  <div class="modal-dialog" style="width:40%">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title text text-success text-center">
+          <strong><span class="glyphicon glyphicon-ok pull-left"></span> Konfiguration bestaetigen</strong>
+        </h3>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="text text-center text-success">
+              Moechten Sie mit dieser Konfiguration forfahren? <br />
+              Wenn Sie bestaetigen, werden Teameinladungen an die gewaehlten Mitglieder versendet <br />
+              Eingeladene Mitglieder muessen diese bestaetigen. <br />
+              <br />
+              <strong>Erst wenn alle Mitglieder die Einladungen angenommen haben,</strong><br />
+              <strong>wird der Teamplatz vergeben</strong><br />
+              <br />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <hr />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <button type="button" class="btn btn-my-block btn-sm" data-dismiss="modal" ng-click="bestaetigeTeamkonfig(); switchToTeams()" data-placement="bottom" title="Bestaetigen" onmouseenter="$(this).tooltip('show')">
+              <span class="glyphicon glyphicon-ok"></span>
+            </button>
+          </div>
+          <div class="col-sm-6">
+            <button type="button" class="btn btn-my-block btn-sm" data-dismiss="modal" data-placement="bottom" title="Abbrechen" onmouseenter="$(this).tooltip('show')">
+              <span class="glyphicon glyphicon-remove"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

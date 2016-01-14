@@ -1,0 +1,158 @@
+<div class="row" id="pflichtpraktika" ng-controller="PraktikaController">
+  <br />
+  <div class="col-md-10 col-md-offset-1" ng-controller="ModalController">
+    <div class="panel panel-cust-info">
+      <br />
+      <div class="panel-body" ng-controller="AnmeldeController">
+        <!--ContentPane start-->
+        <div class="col-md-10 col-md-offset-1">
+          <div class="panel panel-cust-success">
+            <div class="panel-heading">
+              <h2>
+                <strong>Projekte-Übersicht</strong>
+              </h2>
+            </div>
+            <div class="panel-body">
+              <div ng-show="(pruefeAnmeldePhase(po.datumStart) && !pruefeAnmeldePhase(po.datumEnde.addDays(1))) || (pruefeAnmeldePhase(po.datumEinzelStart) && !pruefeAnmeldePhase(po.datumEinzelEnde.addDays(1)))">
+                <div class="row">
+                  <div class="col-sm-6 text text-muted">
+                    <small>Fach</small>
+                  </div>
+                  <div class="col-sm-6 text text-muted">
+                    <small>Filter</small>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class=col-md-6>
+                    <select class="form-control" data-width="100%" ng-model="gr.currFachkuerzel" ng-options="fk for fk in gr.fachkuerzel" ng-change="getAlleGruppenFuerFach(gr.currFachkuerzel)">
+                    </select>
+                  </div>
+                  <div class="col-sm-6 inner-addon right-addon">
+                    <span class="glyphicon glyphicon-search"></span>
+                    <input type="text" class="form-control" ng-model="searchKeyword" placeholder="Fach oder Gruppennummer eingeben..." />
+                  </div>
+                </div>
+                <div class="row">
+                  <br />
+                  <br />
+                  <div class="col-sm-12">
+                    <div class="strike text-muted">
+                      <span>
+                        <h5>Veranstaltung(en) auswaehlen</h5>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Auswahl</th>
+                          <th>Fach</th>
+                          <th>Grp.-Nr.</th>
+                          <th>Termine</th>
+                          <th>Konflikt mit</th>
+                          <th>Professor</th>
+                          <th>Assistent</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr ng-repeat="gruppenEintrag in gruppenEintraege | filter: searchKeyword" ng-class="{'ausgewaehlt': gruppenEintrag.ausgewaehlt }">
+                          <td>
+                            <div class="checkbox checkbox-info">
+                              <input id="checkbox2" class="styled styled-info" type="checkbox" ng-checked="gruppenEintrag.ausgewaehlt" ng-click="gruppeAuswaehlen(gruppenEintrag.gruppe.fachkuerzel, gruppenEintrag.gruppe.grpNr)">
+                              <label></label>
+                            </div>
+                          </td>
+                          <td>{{gruppenEintrag.gruppe.fachkuerzel}}</td>
+                          <td>{{gruppenEintrag.gruppe.grpNr}}</td>
+                          <td>
+                            <div ng-repeat="termin in gruppenEintrag.gruppe.termine" ng-class="{'text-danger': termin.usGruppen.length > 0}">
+                              {{termin.formattedDateString}}
+                            </div>
+                          </td>
+                          <td>
+                            <div ng-repeat="termin in gruppenEintrag.gruppe.termine" class="text text-danger">
+                              <div ng-repeat="gruppe in termin.usGruppen">
+                                {{gruppe.fachkuerzel}}, {{gruppe.grpNr}}
+                              </div>
+                            </div>
+                          </td>
+                          <td>{{gruppenEintrag.gruppe.dozent.vollerName}}</td>
+                          <td>{{gruppenEintrag.gruppe.assistent.vollerName}}</td>
+                          <td>
+                            <button type="button" class="btn btn-my-default btn-sm" ng-click="initGruppenDetails(gruppenEintrag.gruppe.fachkuerzel, gruppenEintrag.gruppe.grpNr); getGruppeDetails()" data-toggle="modal" data-target="#gruppeDetails" data-placement="bottom" title="Zeige Details dieser Gruppe"
+                                    onmouseenter="$(this).tooltip('show')">
+                              <span class="glyphicon glyphicon glyphicon-info-sign"></span>
+                            </button>
+                            <div ng-include="getGruppeDetails()">
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <hr />
+                  </div>
+                </div>
+                <div class="row">
+                  <div ng-show="!pruefeAnmeldePhase(po.datumEnde.addDays(1)) && !isEinzel()">
+                    <div class="col-sm-12">
+                      <button type="button" ng-disabled="!mindEineGruppeAusgewaehlt()" class="btn btn-my-block" data-toggle="modal" data-target="#ueberschn" ng-click="pruefeUs()" data-placement="bottom" title="Team für die gewählten Gruppen konfigurieren" onmouseenter="$(this).tooltip('show')">
+                        <span class="glyphicon glyphicon-cog"></span>
+                      </button>
+                      <p class="help-box"ng-show="!mindEineGruppeAusgewaehlt()"><span class="text text-danger"> <small>Es wurde noch keine Gruppe gewaehlt</small></span></p>
+                    </div>
+                    <div ng-if="viewToggle != 'teamKonfig'">
+                      <div ng-include="getModalUs()">
+
+                      </div>
+                    </div>
+                  </div>
+                  <div ng-show="(pruefeAnmeldePhase(po.datumEnde.addDays(1)) && !pruefeAnmeldePhase(po.datumEinzelEnde.addDays(1))) || isEinzel()">
+                    <div class="col-sm-12">
+                      <button type="button" ng-disabled="!mindEineGruppeAusgewaehlt()" class="btn btn-my-block" data-toggle="modal" data-target="#ueberschn_einzel" ng-click="pruefeUs()" data-placement="bottom" title="Einzeanmeldung(en) speichern" onmouseenter="$(this).tooltip('show')">
+                        <span class="glyphicon glyphicon-ok"></span>
+                      </button>
+                      <p class="help-box"ng-show="!mindEineGruppeAusgewaehlt()"><span class="text text-danger"> <small>Es wurde noch keine Gruppe gewaehlt</small></span></p>
+                    </div>
+                    <div ng-if="viewToggle != 'teams'">
+                      <div ng-include="getModalUsEinzel()">
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <br />
+                  <div class="col-sm-6">
+                    <button type="button" class="btn btn-my-block" ng-click="wechseleAnmeldeTyp()"  data-placement="bottom"
+                            onmouseenter="$(this).tooltip('show')"> Anmeldetyp wechseln
+                    </button>
+                  </div>
+                  <div class="col-sm-6">
+                    <span class="text" ng-class="{'text-danger': !isEinzel(), 'text-success': isEinzel()}">
+                      <span ng-class="{'text-danger': !isEinzel(), 'text-success': isEinzel()}"><big>Einzel</big></span>   <span ng-class="{'text-danger': isEinzel(), 'text-success': !isEinzel()}"><big>Team</big></span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div ng-show="pruefeAnmeldePhase(po.datumEinzelEnde.addDays(1)) || !pruefeAnmeldePhase(po.datumStart)">
+                <div class="row">
+                  <div class="col-sm-12">
+                    Derzeit keine Anmeldungen fuer Projekte verfuegbar.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--ContentPane end-->
+    </div>
+  </div>
+</div>

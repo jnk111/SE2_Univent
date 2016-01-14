@@ -1,0 +1,118 @@
+<div class="row" id="gruppen" ng-controller="ExtController">
+  <br>
+  <div class="col-sm-10 col-sm-offset-1" ng-controller="GruppenController">
+    <div class="panel panel-cust-info">
+      <br />
+      <div class="panel-body">
+        <!--ContentPane start-->
+        <div class="col-sm-10 col-sm-offset-1">
+          <div class="panel panel-cust-success">
+            <div class="panel-heading">
+              <h2>
+                <strong>Gruppenübersicht
+                  <small> - {{gr.fach}}</small>
+                </strong>
+              </h2>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-sm-6 text text-muted">
+                  <small>Filtern:</small>
+                </div>
+                <div class="col-sm-6 text text-muted">
+                  <small>Gruppenummer:</small>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6 inner-addon right-addon">
+                  <span class="glyphicon glyphicon-search"></span>
+                  <input type="text" class="form-control" ng-model="searchKeyword" placeholder="Fach, Dozent, Assistent, Gruppennummer eingeben..." />
+                </div>
+                <div class=col-sm-6>
+                  <select class="form-control" data-width="100%" ng-model="gr.grpNr" ng-options="grNr for grNr in grNummern">
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <br/>
+                <div class="col-sm-12">
+                  <table class="table table-striped" ng-controller="ModalController">
+                    <thead>
+                      <tr>
+                        <th>Fach</th>
+                        <th>Grp. Nr.</th>
+                        <th>KW</th>
+                        <th>Prof</th>
+                        <th>Assistent</th>
+                        <th>Anz. Teams</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="gruppe in gruppen | filter: searchKeyword">
+                        <td>{{gruppe.fachkuerzel}}</td>
+                        <td>{{gruppe.grpNr}}</td>
+                        <td>{{gruppe.kw}}</td>
+                        <td>{{gruppe.dozent.nachname}}</td>
+                        <td>{{gruppe.assistent.nachname}}</td>
+                        <td>{{gruppe.minTeams}} / {{gruppe.maxTeams}}</td>
+                        <td>
+                          <button type="button" class="btn btn-my-default btn-sm" ng-click="initTmUebersicht(gruppe.grpNr); switchToTmUebersicht()" data-placement="bottom" title="Weiter zur Teilnehmerübersicht" onmouseenter="$(this).tooltip('show')">
+                            <span class="glyphicon glyphicon-forward"></span>
+                          </button>
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-my-default btn-sm" ng-click="initGruppeDetails(gruppe.grpNr)" data-toggle="modal" data-target="#gruppeDetails" data-placement="bottom" title="Details zu dieser Gruppe anzeigen" onmouseenter="$(this).tooltip('show')">
+                            <span class="glyphicon glyphicon glyphicon-info-sign"></span>
+                          </button>
+                          <div ng-include src="getGruppeDetails()"></div>
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-my-default btn-sm" ng-click="initGruppeEdit(gruppe.grpNr)" data-toggle="modal" data-target="#gruppeBearbeiten" data-placement="bottom" title="Gruppe bearbeiten" onmouseenter="$(this).tooltip('show')">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                          </button>
+                          <div ng-include src="getGruppeEdit()"></div>
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-my-default btn-sm" ng-click="initGruppeLoeschen(gruppe.grpNr)" data-toggle="modal" data-target="#gruppeLoeschen" data-placement="bottom" title="Diese Gruppe löschen" onmouseenter="$(this).tooltip('show')">
+                            <span class="glyphicon glyphicon glyphicon-trash"></span>
+                          </button>
+                          <div ng-include src="getGruppeLoeschen()"></div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <hr/>
+                </div>
+              </div>
+              <div class="row" id="grerstellen">
+                <div class="col-sm-12">
+                  <button type="button" class="btn btn-my-block" data-toggle="modal" ng-click="grErstellen()" data-placement="bottom" title="Neue Gruppe erstellen" onmouseenter="$(this).tooltip('show')">
+                    <span class="glyphicon glyphicon-plus"></span>
+                  </button>
+                  <div ng-switch on="getCurrTemplate()">
+                    <div ng-switch-when="grErstellen">
+                      <div ng-include="getExtGruppeErstellen()"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <br/>
+                <div class="col-md-12">
+                  <button type="button" class="btn btn-my-block btn-md" data-placement="bottom" title="Zurück zur Praktikaübersicht" onmouseenter="$(this).tooltip('show')" ng-click="switchToPraktika()">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--ContentPane end-->
+    </div>
+  </div>
+</div>

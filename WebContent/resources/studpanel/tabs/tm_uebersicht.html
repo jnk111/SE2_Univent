@@ -1,0 +1,84 @@
+<div class="row" id="tm_uebersicht" ng-controller="TMUebersichtController">
+  <br />
+  <div class="col-md-10 col-md-offset-1">
+    <div class="panel panel-cust-info">
+      <br />
+      <div class="panel-body">
+        <!--ContentPane start-->
+        <div class="col-md-10 col-md-offset-1">
+          <div class="panel panel-cust-success">
+            <div class="panel-heading">
+              <h2>
+                <strong>Teilnehmerübersicht
+                  <small> - {{gruppe.fachkuerzel}} - Gruppe: {{gruppe.grpNr}}</small>
+                </strong>
+              </h2>
+            </div>
+            <div class="panel-body">
+              <!--Table start-->
+              <div class="row">
+                <div class="col-sm-12 inner-addon right-addon">
+                  <span class="glyphicon glyphicon-search"></span>
+                  <input type="text" class="form-control" placeholder="Filtern - Name oder Matrikelnr eingeben..." />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <br/>
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Matrikelnr.</th>
+                        <th>Vorname</th>
+                        <th>Nachname</th>
+                        <th>Team-Nr.</th>
+                        <th>Fortschritt</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="teiln in teilnehmer" ng-controller="ModalController">
+                        <td>{{teiln.student.matrNr.matrNr}}</td>
+                        <td>{{teiln.student.vorname}}</td>
+                        <td>{{teiln.student.nachname}}</td>
+                        <td>{{teiln.teamID.id}}</td>
+                        <td>
+                          <div class="progress">
+                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:50%">
+                              50%
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-my-default btn-sm pull-right" ng-click="initTmDetails(teiln.student.matrNr)" data-target="#modalTmDetailsPrakt" data-toggle="modal" data-placement="bottom" title="Details anzeigen" onmouseenter="$(this).tooltip('show')">
+                            <span class="glyphicon glyphicon-user"></span>
+                          </button>
+                          <div ng-include="getModalTmDetailsPrakt()">
+
+                          </div>
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-my-default btn-sm" ng-click="initTmLoeschen(teiln.student.matrNr)" data-target="#modalTmEntfernen" data-toggle="modal" data-placement="bottom" title="Teilnehmer aus Kurs entfernen" onmouseenter="$(this).tooltip('show')">
+                            <span class="glyphicon glyphicon-minus"></span>
+                          </button>
+                          <div ng-include="getModalTmEntfernen()"></div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <button type="button" class="btn btn-my-block btn-md" data-placement="bottom" title="Zurück zur Gruppenübersicht" onmouseenter="$(this).tooltip('show')" ng-click="switchToGruppen()">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--ContentPane end-->
+    </div>
+  </div>
+</div>

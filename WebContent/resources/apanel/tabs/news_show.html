@@ -1,0 +1,29 @@
+<div class="panel-body" ng-controller="ExtController">
+  <div class="row" ng-controller="NewsController">
+    <div class="col-sm-12">
+      <h3>
+        <strong>{{getNewsHeader()}}</strong>
+        <button type="button" class="btn btn-my-default btn-sm pull-right" ng-click="showEditPanel()" data-placement="bottom" title="Diese News bearbeiten" onmouseenter="$(this).tooltip('show')">
+          <span class="glyphicon glyphicon-pencil"></span>
+        </button>
+      </h3>
+    </div>
+    <div class="col-sm-12">
+      <span>{{getNewsBody()}}</span>
+      <br/>
+      <br/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12" id="newserstellen">
+      <button type="button" class="btn btn-my-block" data-toggle="modal" ng-click="newsErstellen()" data-placement="bottom" title="Neue News erstellen" onmouseenter="$(this).tooltip('show')">
+        <span class="glyphicon glyphicon-plus"></span>
+      </button>
+      <div ng-switch on="getCurrTemplate()">
+        <div ng-switch-when="newsErstellen">
+          <div ng-include="getExtNewsErstellen()"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

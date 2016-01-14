@@ -1,0 +1,31 @@
+<div class="modal" id="modalTmEntfernen" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">
+          <strong>Teilnehmer entfernen</strong>
+        </h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-12 text text-muted">Diesen Teilnehmer aus der Gruppe entfernen?</div>
+        </div>
+        <div class="row">
+          <br />
+          <div class="col-sm-6">
+            <button type="button" class="btn btn-my-block" data-dismiss="modal" ng-click="entferneTeilnehmer(entfIndex)" data-placement="bottom" title="Teilnehmer entfernen" onmouseenter="$(this).tooltip('show')">
+              <span class="glyphicon glyphicon-ok"></span>
+            </button>
+          </div>
+          <div class="col-sm-6">
+            <button type="button" class="btn btn-my-block" data-dismiss="modal" data-placement="bottom" title="Abbrechen" onmouseenter="$(this).tooltip('show')">
+              <span class="glyphicon glyphicon-minus"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

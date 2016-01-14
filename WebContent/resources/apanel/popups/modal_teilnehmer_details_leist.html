@@ -1,0 +1,55 @@
+<div class="modal" id="modalTmDetailsLeist" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">
+          <strong>Teilnehmerdetails</strong>
+        </h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <table class="table table-bordered table-striped" style="margin: 0px;">
+              <tbody>
+                <tr ng-model="tm.matrNr">
+                  <td>Matrikel-Nr.</td>
+                  <td>{{ls.matrNr}}</td>
+                </tr>
+                <tr ng-model="tm.vorn">
+                  <td>Vorname</td>
+                  <td>{{ls.vorn}}</td>
+                </tr>
+                <tr ng-model="tm.nachn">
+                  <td>Nachname</td>
+                  <td>{{ls.nachn}}</td>
+                </tr>
+                <tr ng-model="tm.pvl">
+                  <td>PVL</td>
+                  <td><strong>{{ls.pvl}}</strong> - eingetr. am. {{ls.datumPVL.getString()}}</td>
+                </tr>
+                <tr ng-model="tm.note">
+                  <td>Note</td>
+                  <td><strong>{{ls.note}}</strong> -  eingetr. am. {{ls.datumNote.getString()}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <hr/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <button type="button" data-dismiss="modal" class="btn btn-my-block" data-placement="bottom" title="Schließen" onmouseenter="$(this).tooltip('show')">
+              <span class="glyphicon glyphicon-minus"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

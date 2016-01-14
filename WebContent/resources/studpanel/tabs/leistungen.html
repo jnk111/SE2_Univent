@@ -1,0 +1,50 @@
+<div class="row" id="leistungen" ng-controller="LeistungenController">
+  <br />
+  <div class="col-md-10 col-md-offset-1">
+    <div class="panel panel-cust-info">
+      <br />
+      <div class="panel-body">
+        <!--ContentPane start-->
+        <div class="col-md-10 col-md-offset-1">
+          <div class="panel panel-cust-success">
+            <div class="panel-heading">
+              <h2>
+                <strong>Meine Leistungen</strong>
+              </h2>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-sm-12">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Fach</th>
+                        <th>Professor</th>
+                        <th>PVL</th>
+                        <th>Datum PVL</th>
+                        <th>Note</th>
+                        <th>Datum Note</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="leist in getLeistungen()">
+                        <td>{{leist.fach.fachKuerzel}}</td>
+                        <td>{{leist.professor.nachname}}</td>
+                        <td>{{leist.pvl}}</td>
+                        <td>{{leist.datumPVL}}</td>
+                        <td>{{leist.note.note}}</td>
+                        <td>{{leist.datumNote}}</td>
+
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--ContentPane end-->
+    </div>
+  </div>
+</div>

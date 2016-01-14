@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="col-sm-12">
+    <table class="table table-bordered">
+      <tbody>
+        <tr ng-repeat="meldung in getMeldungen()">
+          <td>
+            <div ng-if="meldung.visible">
+              <div ng-include src="meldung.getHtml()"></div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,86 @@
+<div>
+  <div class="row">
+    <br/>
+    <div class="col-sm-12">
+      <button type="button" class="btn btn-my-block" ng-click="veranErstellenClose()"data-placement="bottom" title="Abbrechen" onmouseenter="$(this).tooltip('show')">
+        <span class="glyphicon glyphicon-minus"></span>
+      </button>
+    </div>
+  </div>
+  <div>
+  <div class="form-horizontal" role="form">
+    <div class="row">
+      <!-- Modal content-->
+      <div class="col-md-12">
+        <hr />
+        <h3>Veranstaltung erstellen</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6 text text-muted">
+        <small>Fachbereich:</small>
+      </div>
+      <div class="col-sm-6 text text-muted">
+        <small>Semester:</small>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <select class="form-control" data-width="100%" ng-model="va.fachbereich" ng-options="fb for fb in fachbereiche">
+        </select>
+      </div>
+      <div class="col-sm-6">
+        <select class="form-control" data-width="100%" ng-model="va.sem" ng-options="sem for sem in semester">
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <br/>
+      <div class="col-sm-6 text text-muted"><small>Fachbezeichnung:</small></div>
+      <div class="col-sm-6 text text-muted"><small>Teamgröße:</small></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6 inner-addon right-addon">
+        <input type="text" class="form-control" placeholder="Fach eintragen" ng-model="va.fach" name="fach" ng-init="''"/>
+      	<p class="help-box" ng-show="!isValidFachkuerzel(va.fach)"><span class="text text-danger"></small>Mindestens 2 und maximal 5 Zeichen.</span></p>
+      </div>
+       <div class="col-sm-6 inner-addon right-addon">
+        <input type="number" class="form-control" placeholder="Teamgröße eintragen" ng-model="va.teamKap" name="fach" ng-init="''"/>
+      	<p class="help-box"ng-show="!isValidAnzTeilnehmer(va.teamKap)"><span class="text text-danger"> <small>Mindestens 2 und maximal 10 Teilnehmer</small></span></p>
+      </div>
+    </div>
+    <div class="row">
+      <br />
+      <div class="col-sm-12 text text-muted"><small>Fach-Verantworlicher:</small></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 inner-addon right-addon">
+        <span class="glyphicon glyphicon-search"></span>
+        <input type="text" class="form-control" typeahead="professor for professor in getProfString()" ng-model="value" placeholder="MAID, Vorname, Nachname..." />
+      </div>
+    </div>
+    <div class="row">
+      <br />
+      <div class="col-sm-6 text text-muted"><small>Min. Teilnehmer:</small></div>
+      <div class="col-sm-6 text text-muted"><small>Max. Teilnehmer:</small></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <input type="number" name="min" class="form-control" placeholder="Min. Teilnehmer..." data-ng-model="va.min"/>
+        <p class="help-box"ng-show="!isValidNumber(va.min)"><span class="text text-danger"> <small>Bitte gültige Zahl eingeben!</small></span></p>
+        <p class="help-box"ng-show="!isValidMin(va.min)"><span class="text text-danger"><small>Darf nicht > Max sein!</small></span></p>
+      </div>
+      <div class="col-sm-6">
+        <input type="number" class="form-control" placeholder="Max. Teilnehmer..." data-ng-model="va.max" name="assistent"/>
+        <p class="help-box"ng-show="!isValidNumber(va.max)"><span class="text text-danger"> <small>Bitte gültige Zahl eingeben!</small></span></p>
+        <p class="help-box"ng-show="!isValidMax(va.max)"><span class="text text-danger"> <small>Darf nicht < Min sein!</small></span></p>
+      </div>
+    </div>
+    <div class="row">
+    <br/>
+      <div class="col-md-12">
+        <button type="button" ng-disabled="!filledComplete()" ng-click="addVeranstaltung()" class="btn btn-my-block" data-placement="bottom" title="Speichern" onmouseenter="$(this).tooltip('show')"><span class="glyphicon glyphicon-ok"></span></button>
+      </div>
+    </div>
+  </div>
+</div>

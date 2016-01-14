@@ -1,0 +1,63 @@
+<div class="row" id="tm_uebersicht" ng-controller="TMUebersichtController">
+  <br />
+  <div class="col-md-10 col-md-offset-1">
+    <div class="panel panel-cust-info">
+      <br />
+      <div class="panel-body">
+        <!--ContentPane start-->
+        <div class="col-md-10 col-md-offset-1">
+          <div class="panel panel-cust-success">
+            <div class="panel-heading">
+              <h2>
+                <strong>Teilnehmerübersicht
+                  <small> - {{gruppe.fachkuerzel}} - Gruppe: {{gruppe.grpNr}}</small>
+                </strong>
+              </h2>
+            </div>
+            <div class="panel-body">
+              <!--Table start-->
+              <div class="row">
+                <div class="col-sm-12 inner-addon right-addon">
+                  <span class="glyphicon glyphicon-search"></span>
+                  <input type="text" class="form-control" placeholder="Filtern - Name oder Matrikelnr eingeben..." />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <br/>
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Matrikelnr.</th>
+                        <th>Vorname</th>
+                        <th>Nachname</th>
+                        <th>Team-Nr.</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="teiln in getEintraege()" ng-controller="ModalController">
+                        <td>{{teiln.student.matrNr.matrNr}}</td>
+                        <td>{{teiln.student.vorname}}</td>
+                        <td>{{teiln.student.nachname}}</td>
+                        <td>{{teiln.teamID.id}}</td>
+                        <td>
+                          <button type="button" class="btn btn-my-default btn-sm" ng-click="initTmDetails(teiln.student.matrNr)" data-target="#modalTmDetailsPrakt" data-toggle="modal" data-placement="bottom" title="Details anzeigen" onmouseenter="$(this).tooltip('show')">
+                            <span class="glyphicon glyphicon-user"></span>
+                          </button>
+                          <div ng-include="getModalTmDetailsPrakt()">
+
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--ContentPane end-->
+    </div>
+  </div>
+</div>

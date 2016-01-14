@@ -1,0 +1,128 @@
+<div class="row" id="pflichtpraktika" ng-controller="TeamController">
+  <br />
+  <div class="col-md-10 col-md-offset-1">
+    <div class="panel panel-cust-info">
+      <br />
+      <div class="panel-body" ng-controller="ModalController">
+        <!--ContentPane start-->
+        <div class="col-md-10 col-md-offset-1">
+          <div class="panel panel-cust-success">
+            <div class="panel-heading">
+              <h2>
+                <strong>Teamkonfiguration <small>- Ausgewaehlte Gruppen</small></strong>
+              </h2>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Fach</th>
+                        <th>Grp.-Nr.</th>
+                        <th>Mitglieder</th>
+                        <th>Slots</th>
+                        <th>Einzelanm.</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr> <!-- ng-repeat="team in teams"-->
+                        <td>GKAP</td>
+                        <td>1</td>
+                        <td>
+                          <table class="table borderless">
+                            <tbody>
+                              <tr> <!-- ng-repeat="mitglied in team.mitglieder"-->
+                                <td>
+                                  <div><!-- ng-repeat="mitglied in team.mitglieder"-->
+                                    Malte Scheller
+                                  </div>
+                                </td>
+                                <td>
+                                  <button type="button" class="btn btn-my-default btn-sm" ng-click="" data-toggle="modal" data-target="#teamErstellen" data-placement="bottom" title="Fuege Mitglieder hinzu" onmouseenter="$(this).tooltip('show')">
+                                  <span class="glyphicon glyphicon-plus"></span>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                        <td>2/2</td>
+                        <td>
+                          <input type="checkbox" ng-click="" />
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-my-default btn-sm" ng-click="" data-toggle="modal" data-target="#gruppeDetails" data-placement="bottom" title="Zeige Details dieser Gruppe"
+                                  onmouseenter="$(this).tooltip('show')">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                          </button>
+                          <div ng-include="getTeamBearb()">
+                          </div>
+                        </td>
+                      </tr>
+                      <tr> <!-- ng-repeat="team in teams"-->
+                        <td>SEP2</td>
+                        <td>2</td>
+                        <td>
+                          <table class="table borderless">
+                            <tbody>
+                              <tr> <!-- ng-repeat="mitglied in team.mitglieder"-->
+                                <td>
+                                  <div><!-- ng-repeat="mitglied in team.mitglieder"-->
+                                    Malte Scheller,
+                                    Gerrit Bode
+                                  </div>
+                                </td>
+                                <td>
+                                  <button type="button" class="btn btn-my-default btn-sm" ng-click="" data-toggle="modal" data-target="#teamErstellen" data-placement="bottom" title="Fuege Mitglieder hinzu" onmouseenter="$(this).tooltip('show')">
+                                  <span class="glyphicon glyphicon-plus"></span>
+                                </button>
+                                <div ng-include="getTeamErstellen()">
+                                </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                        <td>2/6</td>
+                        <td>
+                          <input type="checkbox" ng-click="" />
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-my-default btn-sm" ng-click="" data-toggle="modal" data-target="#teamBearb" data-placement="bottom" title="Dieses Team bearbeiten"
+                                  onmouseenter="$(this).tooltip('show')">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                          </button>
+                          <div ng-include="getTeamBearb()">
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="row">
+                <br />
+                <div class="col-sm-12">
+                  <button type="button" class="btn btn-my-block" data-toggle="modal" ng-click="zeigeTeamKonfigTab()" data-placement="bottom" title="Alles zurücksetzen" onmouseenter="$(this).tooltip('show')">
+                    <span class="glyphicon glyphicon-minus"></span>
+                  </button>
+                </div>
+              </div>
+              <div class="row">
+                <br />
+                <div class="col-sm-12">
+                  <button type="button" class="btn btn-my-block" data-toggle="modal" ng-click="" data-placement="bottom" title="Teamkonfiguration speichern" onmouseenter="$(this).tooltip('show')">
+                    <span class="glyphicon glyphicon-ok"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--ContentPane end-->
+    </div>
+  </div>
+</div>
