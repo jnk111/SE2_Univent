@@ -2,10 +2,6 @@
 
 Der Univent-Projekt Ordner mit allen nötigen Libaries [SQL-Files](/SQL) und der vorgesehenen Ordnerstruktur (localhost-Version).
 
-Link zur Webversion:
-====================
-http://46.101.189.85:8080/SE2-Praktikumssoftware/
-
 
 Userguide:
 ====================
